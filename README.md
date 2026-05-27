@@ -43,29 +43,27 @@ The project uses the **Synthetic Control Method (SCM)** to estimate the counterf
 
 ### Empirical strategy
 
-To estimate the causal impact of the 33% reservation for women in public sector jobs in Punjab, this paper uses the Synthetic Control Method (SCM). States with similar policies introduced earlier or during this period are removed from the donor pool.[^4]
+To estimate the causal impact of Punjab’s 33% reservation policy for women in public-sector jobs, this project uses the **Synthetic Control Method (SCM)**. States with comparable reservation policies introduced before or during the study period are excluded from the donor pool to avoid contamination.
 
-Let \(Y_{it}\) denote the outcome of interest for state \(i\) in year \(t\). The reservation policy was announced in October 2020; therefore, 2021 is considered the first treatment year. Let \(T_0 = 2020\) denote the last pre-treatment period.
+Let $Y_{it}$ denote the outcome of interest for state $i$ in year $t$. The policy was announced in October 2020, so 2021 is treated as the first post-treatment year. Let $T_0 = 2020$ denote the final pre-treatment year.
 
 The treatment indicator is defined as:
 
-\[
+$$
 D_{it} =
 \begin{cases}
-1 & \text{if } i = Punjab \text{ and } t \geq 2021 \\
-0 & \text{otherwise}
+1, & \text{if } i = \text{Punjab and } t \geq 2021 \\
+0, & \text{otherwise}
 \end{cases}
-\]
+$$
 
-The estimated treatment effect is calculated as the difference between the observed outcome in Punjab and the weighted average of outcomes in the donor states:
+The treatment effect is estimated as the difference between Punjab’s observed outcome and the weighted average outcome of the donor states:
 
-\[
-\hat{\tau}_t =
-Y_{Punjab,t}
--
-\sum_{j=1}^{J} w_j Y_{j,t},
-\qquad t > T_0
-\]
+$$
+\hat{\tau}_t = Y_{Punjab,t} - \sum_{j=1}^{J} w_j Y_{j,t}, \quad t > T_0
+$$
+
+where $w_j$ represents the synthetic-control weight assigned to donor state $j$.
 
 
 ## Key Findings
