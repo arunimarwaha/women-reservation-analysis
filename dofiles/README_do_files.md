@@ -32,7 +32,6 @@ PLFS variable names and suffixes change across survey years. Each annual file is
 ## Folder structure expected
 
 ```text
-project-root/
 ├── Masterfile.do
 ├── dofiles/
 │   ├── clean_2017-18.do
