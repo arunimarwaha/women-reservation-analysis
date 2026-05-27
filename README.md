@@ -1,95 +1,106 @@
-# Women reservation in Public-Sector Employment: Policy Impact Analysis
+# Women’s Reservation in Public-Sector Employment  
+### Policy Impact Analysis using Synthetic Control Method
 
-## Project Overview
+This project estimates the causal impact of Punjab’s 2020 policy reserving 33% of direct recruitment positions in state government jobs for women. Using Indian labour force survey data and the Synthetic Control Method, I compare Punjab’s post-policy trajectory with a weighted synthetic control group constructed from other Indian states.
 
-This project evaluates the impact of Punjab’s 33% reservation policy for women in state government recruitment on female representation in public-sector employment.
+## Why this project matters
 
-Using labour force survey data from 2017–2024 and the Synthetic Control Method (SCM), the analysis estimates the causal effect of the policy by comparing Punjab to a weighted combination of comparable Indian states.
-
-The project combines policy evaluation, labour market analysis, and causal inference techniques to examine whether targeted recruitment policies can improve women’s participation in formal employment.
-
----
+Reservation policies are widely used in India to improve representation of historically disadvantaged groups, but their labour market effects remain an empirical question. This project examines whether Punjab’s women’s reservation policy increased women’s representation in government employment.
 
 ## Research Question
 
-Can targeted recruitment policies improve female participation in formal-sector employment?
+Did Punjab’s 33% reservation policy for women in state government jobs increase the share of women in public-sector employment?
 
-This project analyzes whether introducing a 33% reservation quota for women in public-sector hiring led to measurable increases in women’s representation in government jobs.
+## Data
 
----
+**Source:** Periodic Labour Force Survey (PLFS), India  
+**Level:** Individual-level labour market survey data  
+**Period used:** 2018–2023  
+**Outcome:** Share of women in government jobs  
 
-## Key Skills Demonstrated
+Raw PLFS files are not included in this repository due to size. The data can be accessed here:  
+[PLFS Microdata Portal](https://microdata.gov.in/NADA/index.php/catalog/PLFS/?page=1&sort_order=desc&ps=15&repo=PLFS)
 
-- Data cleaning and preprocessing in STATA
-- Longitudinal labour market analysis
-- Causal inference and policy evaluation
-- Synthetic Control Method (SCM)
-- Statistical analysis and interpretation
-- Data visualization and storytelling
-- Handling large-scale survey datasets
+### Data preparation
 
----
-
-## Dataset
-
-- Periodic Labour Force Survey (PLFS), India
-
-
-Due to large size of data files, raw datasets are not included in this repository.
-
----
+- Aggregated quarterly PLFS data to the annual level to smooth seasonal labour market variation
+- Excluded 2017 and 2024 because both years are only partially observed
+- Restricted the sample to individuals aged 21–47, matching the eligibility age range for direct recruitment
+- Applied PLFS sampling weights throughout the analysis
+- Identified government jobs using enterprise type of principal activity
 
 ## Methodology
 
-The analysis uses the Synthetic Control Method (SCM) to estimate the policy’s impact on women’s employment outcomes.
+The project uses the **Synthetic Control Method (SCM)** to estimate the counterfactual share of women in government jobs in Punjab in the absence of the policy.
 
-### Approach:
-- Constructed a synthetic comparison state using weighted donor states
-- Compared Punjab’s post-policy outcomes against the synthetic control
-- Conducted placebo tests to assess robustness
-- Evaluated pre- and post-treatment trends
+### Treatment
 
-### Treatment Period:
-- Policy announced: October 2020
-- First treatment year: 2021
+- **Policy:** 33% reservation for women in direct recruitment to Punjab Civil Services
+- **Announcement:** October 2020
+- **First treatment year:** 2021
+- **Treated unit:** Punjab
+- **Donor pool:** Indian states without comparable women’s reservation policies during the relevant period
 
----
+### Empirical strategy
+
+To estimate the causal impact of the 33% reservation for women in public sector jobs in Punjab, this paper uses the Synthetic Control Method (SCM). States with similar policies introduced earlier or during this period are removed from the donor pool.[^4]
+
+Let \(Y_{it}\) denote the outcome of interest for state \(i\) in year \(t\). The reservation policy was announced in October 2020; therefore, 2021 is considered the first treatment year. Let \(T_0 = 2020\) denote the last pre-treatment period.
+
+The treatment indicator is defined as:
+
+\[
+D_{it} =
+\begin{cases}
+1 & \text{if } i = Punjab \text{ and } t \geq 2021 \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+The estimated treatment effect is calculated as the difference between the observed outcome in Punjab and the weighted average of outcomes in the donor states:
+
+\[
+\hat{\tau}_t =
+Y_{Punjab,t}
+-
+\sum_{j=1}^{J} w_j Y_{j,t},
+\qquad t > T_0
+\]
+
 
 ## Key Findings
+- Before treatment, Punjab and synthetic Punjab closely track each other, suggesting a reasonable counterfactual fit.
+- After the policy implementation, Punjab’s trajectory begins to diverge from the synthetic control.
+- By 2023, the share of women in government jobs in Punjab reaches approximately 0.46, compared with around 0.36–0.37 for synthetic Punjab.
+- Placebo tests suggest that Punjab’s post-treatment gap is larger than most placebo gaps.
+- Results suggest that the policy is associated with a substantial increase in women’s representation in government employment.
 
-- Women’s representation in government jobs increased following the policy implementation.
-- Punjab’s post-2021 employment trends diverged from the synthetic control trajectory.
-- Placebo tests suggest the observed effects are unlikely to be driven by random variation.
-- Results indicate that targeted reservation policies may improve women’s access to public-sector employment.
 
----
+## Robustness Checks
+- Conducted placebo tests by applying SCM to donor states
+- Excluded placebo units with poor pre-treatment fit
+- Compared post-treatment gaps against the placebo distribution
+
+## Limitations
+
+The results should be interpreted with caution because the available PLFS period provides a short pre-treatment window. Future work could extend the analysis using longer time horizons and additional outcomes such as female labour force participation, sectoral employment patterns, education, and private-sector spillovers.
+
+## Skills Demonstrated
+- Causal inference and policy evaluation
+- Synthetic Control Method
+- Labour market data analysis
+- Survey data cleaning and preprocessing
+- Panel data construction
+- Placebo testing and robustness checks
+- Data visualization and interpretation
+- Policy-focused analytical writing
 
 ## Tools Used
-
 - STATA
-- Synthetic Control Methodology
-- Econometric Analysis
-- Labour Market Data Analysis
-- Data Visualization
+- PLFS microdata
+- Synthetic Control Method
+- Econometric analysis
+- Data visualization
 
----
-
-## Selected Visualizations
-
-The repository includes:
-- Trend analysis of women’s share in government jobs
-- Synthetic control comparison plots
-- Placebo test visualizations
-- Treatment effect analysis
-
----
-
-## Research Context
-
-This project was developed as an applied econometrics and policy evaluation exercise focused on labour market outcomes and gender inclusion in public-sector employment.
-
----
-
-## Author
-
-Arunima Marwaha  
+### Author
+Arunima Marwaha
